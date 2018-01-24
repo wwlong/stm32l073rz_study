@@ -1,0 +1,2 @@
+The STM32CubeL0_Demo_Nucleo.hex is generated using :
+ - EWARM 7.30 project
