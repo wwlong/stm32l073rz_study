@@ -346,9 +346,9 @@ int32_t mag3110_std(void) {
             out_zmax = out_z;
         } 
         /* 其他情况不需要处理 */
-        off_x = (out_xmin + out_xmax) > 2;
-        off_y = (out_ymin + out_ymax) > 2;
-        off_z = (out_zmin + out_zmax) > 2;
+        off_x = (out_xmin + out_xmax) > 1;
+        off_y = (out_ymin + out_ymax) > 1;
+        off_z = (out_zmin + out_zmax) > 1;
         off_x_msb = off_x >> 8;
         off_x_lsb = off_x & 0xff;
         off_y_msb = off_y >> 8;
