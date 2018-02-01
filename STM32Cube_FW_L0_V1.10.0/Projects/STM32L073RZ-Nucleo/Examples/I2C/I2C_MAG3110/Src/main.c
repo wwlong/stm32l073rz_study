@@ -149,6 +149,7 @@ int main(void)
         get_magnetometer_info();
         get_temperature();
         get_sysmode();
+        mag3110_std();
     }
     
     

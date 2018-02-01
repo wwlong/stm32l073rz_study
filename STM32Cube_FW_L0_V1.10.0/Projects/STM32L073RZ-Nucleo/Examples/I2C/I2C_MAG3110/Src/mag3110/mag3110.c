@@ -19,6 +19,13 @@ uint8_t out_z_lsb;
 uint16_t out_x;
 uint16_t out_y;
 uint16_t out_z;
+uint16_t out_xmin;
+uint16_t out_ymin;
+uint16_t out_zmin;
+uint16_t out_xmax;
+uint16_t out_ymax;
+uint16_t out_zmax;
+
 uint8_t mag3110_id;
 uint8_t sysmode;
 uint8_t off_x_msb;
@@ -27,6 +34,10 @@ uint8_t off_y_msb;
 uint8_t off_y_lsb;
 uint8_t off_z_msb;
 uint8_t off_z_lsb;
+uint16_t off_x;
+uint16_t off_y;
+uint16_t off_z;
+
 uint8_t die_temp;
 uint8_t ctrl_reg1;
 uint8_t ctrl_reg2;
@@ -284,8 +295,69 @@ int8_t get_mag3110_id(void) {
     i2c_read_mem(MAG3110_READ_ADDR, WHO_AM_I, (uint8_t*)&mag3110_id, &len);
     return mag3110_id;
 }
-
-
+/* mag3110  x y standardization*/
+uint8_t first_config = 0;
+int32_t mag3110_std(void) {
+    uint16_t len = 1;
+    /*
+        Bit7    Bit6    Bit5    Bit4    Bit3    Bit2    Bit1    Bit0
+        ZYXOW   ZOW     YOW     XOW     ZYXDR   ZDR     YDR     XDR
+    */
+    i2c_read_mem(MAG3110_READ_ADDR, DR_STATUS, &dr_status, &len);
+    if(ZYXDR_MASK & dr_status) {
+        i2c_read_mem(MAG3110_READ_ADDR, OUT_X_LSB_REG, &out_x_lsb, &len);
+        i2c_read_mem(MAG3110_READ_ADDR, OUT_X_MSB_REG, &out_x_msb, &len);
+        i2c_read_mem(MAG3110_READ_ADDR, OUT_Y_LSB_REG, &out_y_lsb, &len);
+        i2c_read_mem(MAG3110_READ_ADDR, OUT_Y_MSB_REG, &out_y_msb, &len);;
+        i2c_read_mem(MAG3110_READ_ADDR, OUT_Z_LSB_REG, &out_z_lsb, &len);
+        i2c_read_mem(MAG3110_READ_ADDR, OUT_Z_MSB_REG, &out_z_msb, &len);
+        out_x = out_x_msb<<8;
+        out_x += out_x_lsb;
+        out_y = out_y_msb<<8;
+        out_y += out_y_lsb;
+        out_z = out_z_msb<<8;
+        out_z += out_z_lsb;
+        /* get off value*/
+        if(0 == first_config) {
+            out_xmin = out_x;
+            out_ymin = out_y;
+            out_zmin = out_z;
+            out_xmax = out_x;
+            out_ymax = out_y;
+            out_zmax = out_z;
+            first_config = 1;
+        }
+        if(out_x < out_xmin) {
+            out_xmin = out_x;
+        }
+        else if(out_x > out_xmax) {
+            out_xmax = out_x;
+        }
+        if(out_y < out_ymin) {
+            out_ymin = out_y;
+        }
+        else if(out_y > out_ymax) {
+            out_ymax = out_y;
+        }
+        if(out_z < out_zmin) {
+            out_zmin = out_z;
+        }
+        else if(out_z > out_zmax) {
+            out_zmax = out_z;
+        } 
+        /* 其他情况不需要处理 */
+        off_x = (out_xmin + out_xmax) > 2;
+        off_y = (out_ymin + out_ymax) > 2;
+        off_z = (out_zmin + out_zmax) > 2;
+        off_x_msb = off_x >> 8;
+        off_x_lsb = off_x & 0xff;
+        off_y_msb = off_y >> 8;
+        off_y_lsb = off_y & 0xff;
+        off_z_msb = off_z >> 8;
+        off_z_lsb = off_z & 0xff;
+    }
+    return 0;
+}
 /**
 * @brief  This function is executed in case of error occurrence.
 * @param  None

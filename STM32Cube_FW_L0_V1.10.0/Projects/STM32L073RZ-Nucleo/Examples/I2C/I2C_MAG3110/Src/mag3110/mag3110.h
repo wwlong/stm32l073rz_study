@@ -95,6 +95,7 @@ extern "C" {
     int32_t get_temperature(void);
     int32_t get_sysmode(void);
     int8_t get_mag3110_id(void);
+    int32_t mag3110_std(void);
 #ifdef __cplusplus
 }
 #endif
