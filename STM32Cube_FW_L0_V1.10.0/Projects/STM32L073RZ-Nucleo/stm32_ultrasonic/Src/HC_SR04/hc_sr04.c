@@ -33,8 +33,8 @@ double degrees_celsius，摄氏度，℃
 return double,mm/s
 */
 static double sonic_speed_in_air(double degrees_celsius) {
-  double sonic_speed = (331 + 0.607 * degrees_celsius)*1000;
-  return sonic_speed;
+  double speed = (331 + 0.607 * degrees_celsius)*1000;
+  return speed;
 }
 
 int timing(void) {
@@ -42,27 +42,30 @@ int timing(void) {
 }
 /*
 calculate distance
-int us，毫秒
+int us，微秒
 floart centigrade,当前环境温度，单位：摄氏度
 return:距离，单位：mm
 */
-double cal_distance(int us, double centigrade){
-  double sonic_speed = sonic_speed_in_air(centigrade) / 1000; //mm/s --> mm / ms
-  return ((sonic_speed * us) / 2); // >>1
+double sonic_speed;
+extern float distance_from_ultrasonic;
+float cal_distance(double us, double centigrade){
+  sonic_speed = sonic_speed_in_air(centigrade) / 1000000; //mm/s --> mm / us
+  distance_from_ultrasonic = sonic_speed * us;
+  return distance_from_ultrasonic; // >>1
 }
 
 int timer_init(void) {
   TIM_HandleTypeDef TimHandle;
   /* Set TIMx instance */
   TimHandle.Instance = TIM2;
-
-    /* Compute the prescaler value to have TIMx counter clock equal to 1000 kHz */
+  
+  /* Compute the prescaler value to have TIMx counter clock equal to 1000 kHz */
   uwPrescalerValue = ((SystemCoreClock) / 1000000) - 1;
   TimHandle.Init.Period            = SystemCoreClock - 1;
   TimHandle.Init.Prescaler         = uwPrescalerValue;
   TimHandle.Init.ClockDivision     = 0;
   TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
-
+  
   if (HAL_TIM_Base_Init(&TimHandle) != HAL_OK)
   {
 	

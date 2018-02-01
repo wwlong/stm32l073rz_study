@@ -41,7 +41,7 @@ int timing(void);
 	floart centigrade,当前环境温度，单位：摄氏度
 	return:距离，单位：mm
 */
-double cal_distance(int us, double centigrade);
+float cal_distance(double us, double centigrade);
 
 int timer_init(void);
 /*

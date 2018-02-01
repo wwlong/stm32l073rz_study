@@ -36,6 +36,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "hc_sr04.h"
+
 /** @addtogroup STM32L0xx_HAL_Examples
   * @{
   */
@@ -60,6 +61,8 @@ double pow_test;
 GPIO_PinState US_TRIG_PIN_VALUE;
 GPIO_PinState US_ECHO_PIN_VALUE;
 uint32_t ECHO_TIME = 0;
+float distance_from_ultrasonic;
+float distance_return;
 uint32_t timer_cnt1 = 0;
 uint32_t timer_cnt2 = 0;
 /* Private function prototypes -----------------------------------------------*/
@@ -123,7 +126,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   * @param  None
   * @retval None
   */
-
+double hahaha(void) {
+	return 45.0;
+}
 int main(void)
 {
 
@@ -201,7 +206,9 @@ int main(void)
 	  }
 	}
 	ECHO_TIME = timer_cnt2 - timer_cnt1;
+	distance_return = cal_distance(ECHO_TIME*1.0, 6.0);
 	US_ECHO_PIN_VALUE = HAL_GPIO_ReadPin(US_ECHO_PORT, US_ECHO_PIN);
+	__HAL_TIM_SET_COUNTER(&TimHandle, 0);
 	//给trig施加高电平
 	
   }
