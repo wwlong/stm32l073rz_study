@@ -9,7 +9,7 @@ ADC_HandleTypeDef    AdcHandle;
 
 /* ADC channel configuration structure declaration */
 ADC_ChannelConfTypeDef        sConfig_adc;
-float voltage;
+float output_voltage;
 /* Variable used to get converted value */
 __IO uint32_t uwADCxConvertedValue = 0;
 static void Error_Handler(void)
@@ -100,11 +100,12 @@ void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
   /* Get the converted value of regular channel */
   uwADCxConvertedValue = HAL_ADC_GetValue(AdcHandle);
   //double distance = 0;
-  voltage = 3.3 * uwADCxConvertedValue/4096;
+  float input_output_voltage = 3.3;
+  output_voltage = input_output_voltage * uwADCxConvertedValue/4096;
   /*
 	此处公式参考官方文档所得
 	*/
-  infrared_dis = 11.095/(voltage-0.015555) - 0.42;
+  infrared_dis = 11.095/(output_voltage-0.015955) - 2.16;
   //infrared_dis = 8.7328*powf(uwADCxConvertedValue,-0.912)+2.51;
 }
   

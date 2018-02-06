@@ -1046,7 +1046,7 @@
         <group>
             <name>CMSIS</name>
             <file>
-                <name>$PROJ_DIR$\..\..\stm32_ultrasonic\Src\system_stm32l0xx.c</name>
+                <name>$PROJ_DIR$\..\Src\system_stm32l0xx.c</name>
             </file>
         </group>
         <group>

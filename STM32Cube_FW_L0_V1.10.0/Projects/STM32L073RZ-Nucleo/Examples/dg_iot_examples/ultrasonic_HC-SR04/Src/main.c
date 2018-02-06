@@ -184,11 +184,12 @@ int main(void)
 	US_ECHO_PIN_VALUE = HAL_GPIO_ReadPin(US_TRIG_PORT, US_ECHO_PIN);
 	
 	while(1) {
-	  	timer_cnt2 = HAL_GPIO_ReadPin(US_TRIG_PORT, US_TRIG_PIN);
+	  	timer_cnt2 = __HAL_TIM_GET_COUNTER(&TimHandle);
 		if(timer_cnt2 - timer_cnt1 >= 30) {
 			break;
 		}
 	}
+	__HAL_TIM_SET_COUNTER(&TimHandle, 0);
 	US_TRIG_PIN_VALUE = HAL_GPIO_ReadPin(US_TRIG_PORT, US_TRIG_PIN);
 	HAL_GPIO_WritePin(US_TRIG_PORT, US_TRIG_PIN, GPIO_PIN_RESET);
 	
@@ -206,7 +207,7 @@ int main(void)
 	  }
 	}
 	ECHO_TIME = timer_cnt2 - timer_cnt1;
-	distance_return = cal_distance(ECHO_TIME*1.0, 6.0);
+	distance_return = cal_distance(ECHO_TIME, 6.0);
 	US_ECHO_PIN_VALUE = HAL_GPIO_ReadPin(US_ECHO_PORT, US_ECHO_PIN);
 	__HAL_TIM_SET_COUNTER(&TimHandle, 0);
 	//给trig施加高电平

@@ -23,9 +23,9 @@
 
 if ($debugfile -eq "")
 {
-& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\I2C_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.general.xcl" --backend -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\I2C_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.driver.xcl" 
+& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\magnetic_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.general.xcl" --backend -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\magnetic_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.driver.xcl" 
 }
 else
 {
-& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\I2C_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.general.xcl" --debug_file=$debugfile --backend -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\I2C_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.driver.xcl" 
+& "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\common\bin\cspybat" -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\magnetic_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.general.xcl" --debug_file=$debugfile --backend -f "D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\magnetic_MAG3110\EWARM\settings\Project.STM32L073RZ_NUCLEO.driver.xcl" 
 }

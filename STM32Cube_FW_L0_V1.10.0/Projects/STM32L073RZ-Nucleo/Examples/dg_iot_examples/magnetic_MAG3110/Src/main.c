@@ -55,15 +55,9 @@
 #define MASTER_REQ_READ    0x12
 #define MASTER_REQ_WRITE   0x34
 
-/* I2C TIMING Register define when I2C clock source is SYSCLK */
-/* I2C TIMING is calculated in case of the I2C Clock source is the SYSCLK = 32 MHz */
-//#define I2C_TIMING    0x10A13E56 /* 100 kHz with analog Filter ON, Rise Time 400ns, Fall Time 100ns */ 
-#define I2C_TIMING      0x00B1112E /* 400 kHz with analog Filter ON, Rise Time 250ns, Fall Time 100ns */     
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-/* I2C handler declaration */
-I2C_HandleTypeDef I2cHandle;
 
 
 /* Buffer used for transmission */
@@ -104,27 +98,7 @@ int main(void)
     
     /* Configure LED2 */
     BSP_LED_Init(LED2);
-    
-    /*##-1- Configure the I2C peripheral ######################################*/
-    I2cHandle.Instance             = I2Cx;
-    I2cHandle.Init.Timing          = I2C_TIMING;
-    I2cHandle.Init.OwnAddress1     = I2C_ADDRESS;
-    I2cHandle.Init.AddressingMode  = I2C_ADDRESSINGMODE_7BIT;
-    I2cHandle.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-    I2cHandle.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
-    I2cHandle.Init.OwnAddress2     = 0xFF;
-    I2cHandle.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-    I2cHandle.Init.NoStretchMode   = I2C_NOSTRETCH_DISABLE;  
-    
-    if(HAL_I2C_Init(&I2cHandle) != HAL_OK)
-    {
-        /* Initialization Error */
-        Error_Handler();
-    }
-    
-    /* Enable the Analog I2C Filter */
-    HAL_I2CEx_ConfigAnalogFilter(&I2cHandle,I2C_ANALOGFILTER_ENABLE);
-    
+	
     /* Configure User push-button */
     BSP_PB_Init(BUTTON_KEY,BUTTON_MODE_GPIO);
     

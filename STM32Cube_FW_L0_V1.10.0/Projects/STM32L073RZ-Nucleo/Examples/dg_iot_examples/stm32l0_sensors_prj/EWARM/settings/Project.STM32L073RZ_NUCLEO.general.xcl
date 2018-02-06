@@ -1,0 +1,15 @@
+"D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\bin\armproc.dll" 
+
+"D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\bin\armstlink2.dll" 
+
+"D:\workspace\github_work\stm32l073rz_study\STM32Cube_FW_L0_V1.10.0\Projects\STM32L073RZ-Nucleo\Examples\dg_iot_examples\stm32l0_sensors_prj\EWARM\STM32L073RZ_NUCLEO\Exe\Project.out" 
+
+--plugin "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\bin\armbat.dll" 
+
+--device_macro "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\config\debugger\ST\STM32L0xx.dmac" 
+
+--flash_loader "D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.0\arm\config\flashloader\ST\FlashSTM32L07xxZ.board" 
+
+
+
+
